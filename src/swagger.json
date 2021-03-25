@@ -1,0 +1,173 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Users Management Documentation",
+    "description": "This is an API to handle users",
+    "version": "1.0.0",
+    "contact": {
+      "email": "matheuswts2011@hotmail.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Create a new user",
+        "requestBody": {
+          "required": true,
+          "description": "Required properties to create a new user.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "John Doe",
+                  "email": "john.doe@hotmail.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "admin": false,
+                    "id": "fe3e5a07-c0da-489f-95d4-b0ddc01e34b7",
+                    "name": "John Doe",
+                    "email": "john.doe@hotmail.com",
+                    "created_at": "2021-03-25T01:08:27.488Z",
+                    "updated_at": "2021-03-25T01:08:27.488Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "E-mail already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "E-mail already exists"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/admin": {
+      "patch": {
+        "tags": ["users"],
+        "summary": "Transform an user into admin",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User transformed into admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "admin": true,
+                    "id": "fe3e5a07-c0da-489f-95d4-b0ddc01e34b7",
+                    "name": "John Doe",
+                    "email": "john.doe@hotmail.com",
+                    "created_at": "2021-03-25T01:08:27.488Z",
+                    "updated_at": "2021-03-25T01:08:27.488Z"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User doesn't exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "User doesn't exists"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
